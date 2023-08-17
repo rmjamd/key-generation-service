@@ -1,7 +1,7 @@
 package com.ramij.kgs.core.service.impl;
 
 import com.ramij.kgs.core.config.Configurator;
-import com.ramij.kgs.server.service.IDGen;
+import com.ramij.kgs.core.service.IDGen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

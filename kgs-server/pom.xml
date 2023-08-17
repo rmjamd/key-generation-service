@@ -8,7 +8,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>kgs-server</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>kgs-server</name>
     <dependencies>
         <dependency>

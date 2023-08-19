@@ -26,6 +26,7 @@ public class SnowflakeWorkerIdGenImpl implements WorkerIdGen {
         this.config = config;
         this.serverInfoProvider = serverInfoProvider;
         ServerInfo serverInfo=serverInfoProvider.getServerDetails();
+        log.info("Server Details:{}", serverInfo);
         ZookeeperHolder zookeeperHolder = null;
         try {
             zookeeperHolder = new ZookeeperHolder(serverInfo.getIpAddress(), serverInfo.getPort(), config.getZkPort());

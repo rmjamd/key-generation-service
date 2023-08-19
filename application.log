@@ -1,0 +1,28 @@
+2023-08-19T09:47:52.670+05:30  INFO 28437 --- [main] com.ramij.kgs.server.KgsApplications     : Starting KgsApplications v0.0.1-SNAPSHOT using Java 17.0.8 with PID 28437 (/home/ramij/project/myproject/key-generation-service/kgs-server/target/kgs-server.jar started by ramij in /home/ramij/project/myproject/key-generation-service)
+2023-08-19T09:47:52.671+05:30 DEBUG 28437 --- [main] com.ramij.kgs.server.KgsApplications     : Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-19T09:47:52.672+05:30  INFO 28437 --- [main] com.ramij.kgs.server.KgsApplications     : No active profile set, falling back to 1 default profile: "default"
+2023-08-19T09:47:53.550+05:30  INFO 28437 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-19T09:47:53.557+05:30  INFO 28437 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-19T09:47:53.558+05:30  INFO 28437 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-19T09:47:53.626+05:30  INFO 28437 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-19T09:47:53.626+05:30  INFO 28437 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 920 ms
+2023-08-19T09:47:53.793+05:30  INFO 28437 --- [main] c.r.k.c.s.impl.SnowflakeWorkerIdGenImpl  : Server Details:com.ramij.kgs.core.model.ServerInfo@72ea6193
+2023-08-19T09:47:54.144+05:30  INFO 28437 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-08-19T09:47:54.196+05:30  INFO 28437 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-19T09:47:54.209+05:30  INFO 28437 --- [main] com.ramij.kgs.server.KgsApplications     : Started KgsApplications in 1.897 seconds (process running for 2.167)
+2023-08-19T09:48:33.535+05:30  INFO 28437 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-19T09:48:33.535+05:30  INFO 28437 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-19T09:48:33.537+05:30  INFO 28437 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-19T09:48:33.566+05:30  INFO 28437 --- [http-nio-8080-exec-2] c.r.k.c.s.impl.SnowflakeWorkerIdGenImpl  : Worker Id: 0
+2023-08-19T09:50:50.456+05:30  INFO 28643 --- [main] com.ramij.kgs.server.KgsApplications     : Starting KgsApplications v0.0.1-SNAPSHOT using Java 17.0.8 with PID 28643 (/home/ramij/project/myproject/key-generation-service/kgs-server/target/kgs-server.jar started by ramij in /home/ramij/project/myproject/key-generation-service)
+2023-08-19T09:50:50.457+05:30 DEBUG 28643 --- [main] com.ramij.kgs.server.KgsApplications     : Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-19T09:50:50.457+05:30  INFO 28643 --- [main] com.ramij.kgs.server.KgsApplications     : No active profile set, falling back to 1 default profile: "default"
+2023-08-19T09:50:51.418+05:30  INFO 28643 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-19T09:50:51.427+05:30  INFO 28643 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-19T09:50:51.427+05:30  INFO 28643 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-19T09:50:51.493+05:30  INFO 28643 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-19T09:50:51.494+05:30  INFO 28643 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 981 ms
+2023-08-19T09:50:51.706+05:30  INFO 28643 --- [main] c.r.k.c.s.impl.SnowflakeWorkerIdGenImpl  : Server Details:ServerInfo(ipAddress=172.19.0.1, port=8080)
+2023-08-19T09:50:52.044+05:30  INFO 28643 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-08-19T09:50:52.096+05:30  INFO 28643 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-19T09:50:52.111+05:30  INFO 28643 --- [main] com.ramij.kgs.server.KgsApplications     : Started KgsApplications in 2.006 seconds (process running for 2.288)

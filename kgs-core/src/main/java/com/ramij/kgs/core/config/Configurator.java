@@ -16,5 +16,9 @@ public class Configurator {
     public String getZkPort() {
         return env.getProperty(Properties.ZK_PORT_NAME);
     }
+    public String getServerPort(){
+        return env.getProperty(Properties.SERVER_PORT);
+    }
+
 
 }

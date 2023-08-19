@@ -1,5 +1,5 @@
 package com.ramij.kgs.core.service;
 
-public interface IDGen {
+public interface WorkerIdGen {
     public int getWorkerId();
 }

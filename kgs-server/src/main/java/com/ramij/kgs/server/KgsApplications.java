@@ -5,8 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication()
-@ComponentScan(basePackages = {"com.ramij.kgs.server", "com.ramij.kgs.core"})
+@SpringBootApplication(scanBasePackages = {"com.ramij.kgs.server", "com.ramij.kgs.core"})
 public class KgsApplications {
 
     public static void main(String[] args) {

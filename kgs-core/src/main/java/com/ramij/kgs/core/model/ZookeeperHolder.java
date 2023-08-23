@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Log4j2
 public class ZookeeperHolder {
@@ -22,7 +24,7 @@ public class ZookeeperHolder {
     private final String hostIp;
     private final String hostPort;
     private int workerId = -1;
-
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     public ZookeeperHolder(String zkAddress, String hostIp, String hostPort) {
         log.info("ZookeeperHolder created with zkAddress: {}, hostIp: {}, hostPort: {}",
                 zkAddress, hostIp, hostPort);
@@ -47,7 +49,7 @@ public class ZookeeperHolder {
                 sequentialNodePath = createSequentialNode(curatorFramework);
                 log.info("New sequential node created: " + sequentialNodePath);
                 workerId = extractWorkerId(sequentialNodePath);
-                saveWorkerIdToFile(workerId);
+                saveWorkerIdToFileAsync(workerId);
             } else {
                 log.info("Node already exists: " + sequentialNodePath);
                 workerId = extractWorkerId(sequentialNodePath);
@@ -117,15 +119,17 @@ public class ZookeeperHolder {
         String sequenceNumber = parts[parts.length - 1];
         return Integer.parseInt(sequenceNumber);
     }
-    private void saveWorkerIdToFile(int workerId) {
-        Path path = Paths.get("workerId.txt");
-        try {
-            if (!Files.exists(path) || Files.exists(path) && Files.isRegularFile(path) && Files.size(path) == 0) {
-                Files.write(path, String.valueOf(workerId).getBytes());
+    private void saveWorkerIdToFileAsync(int workerId) {
+        executorService.submit(() -> {
+            Path path = Paths.get("workerId.txt");
+            try {
+                if (!Files.exists(path) || Files.exists(path) && Files.isRegularFile(path) && Files.size(path) == 0) {
+                    Files.write(path, String.valueOf(workerId).getBytes());
+                }
+            } catch (IOException e) {
+                log.error("Error saving workerId to file: {}", e.getMessage());
             }
-        } catch (IOException e) {
-            log.error("Error saving workerId to file: {}", e.getMessage());
-        }
+        });
     }
 
 

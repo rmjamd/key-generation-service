@@ -9,6 +9,7 @@ import org.apache.zookeeper.CreateMode;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class ZookeeperHolder {
     private static final int SESSION_TIMEOUT = 5000;
     private static final String PARENT_NODE = "/worker_nodes";
+
     private final String zkAddress;
     private final String hostIp;
     private final String hostPort;
@@ -31,57 +33,77 @@ public class ZookeeperHolder {
     }
 
     private void init() {
-        CuratorFramework curatorFramework = CuratorFrameworkFactory.newClient(
-                zkAddress,
-                new ExponentialBackoffRetry(1000, 3)
-        );
-        try {
+        try (CuratorFramework curatorFramework = createCuratorFramework()) {
             curatorFramework.start();
             log.info("Curator Started:");
-        } catch (Exception e) {
-            // Handle the exception, e.g., log the error or perform custom actions
-            log.error("Failed to start CuratorFramework: " + e.getMessage());
-        }
 
-        try {
-            if (curatorFramework.checkExists().forPath(PARENT_NODE) == null) {
-                curatorFramework.create().forPath(PARENT_NODE);
-            }
-            log.info("Parent Node  created:");
+            createParentNodeIfNotExists(curatorFramework);
+
             List<String> existingNodes = curatorFramework.getChildren().forPath(PARENT_NODE);
-
-            String sequentialNodePath = null;
-            for (String node : existingNodes) {
-                if (node.startsWith(hostIp + ":" + hostPort + "-")) {
-                    sequentialNodePath = node;
-                    break;
-                }
-            }
+            String sequentialNodePath = findSequentialNode(existingNodes);
 
             if (sequentialNodePath == null) {
                 // Create a sequential node with IP:port-sequence format
-                sequentialNodePath = curatorFramework.create().withMode(CreateMode.PERSISTENT_SEQUENTIAL)
-                        .forPath(PARENT_NODE + "/" + hostIp + ":" + hostPort + "-", "data".getBytes());
-                System.out.println("New sequential node created: " + sequentialNodePath);
+                sequentialNodePath = createSequentialNode(curatorFramework);
+                log.info("New sequential node created: " + sequentialNodePath);
+                workerId = extractWorkerId(sequentialNodePath);
+                saveWorkerIdToFile(workerId);
             } else {
-                System.out.println("Node already exists: " + sequentialNodePath);
+                log.info("Node already exists: " + sequentialNodePath);
+                workerId = extractWorkerId(sequentialNodePath);
             }
-
-            // Extract sequence number from the node path
-            String[] parts = sequentialNodePath.split("-");
-            String sequenceNumber = parts[parts.length - 1];
-            workerId = Integer.parseInt(sequenceNumber);
-            System.out.println("Node ID sequence: " + sequenceNumber);
-
-            curatorFramework.close();
+            log.info("Node ID sequence: " + workerId);
         } catch (Exception e) {
-            throw new InitializationFailedException(e.getMessage());
+            handleInitializationError(e);
         }
     }
+
+    // Other methods...
+
+    private CuratorFramework createCuratorFramework() {
+        return CuratorFrameworkFactory.newClient(zkAddress, new ExponentialBackoffRetry(1000, 3));
+    }
+
+    private void createParentNodeIfNotExists(CuratorFramework curatorFramework) throws Exception {
+        if (curatorFramework.checkExists().forPath(PARENT_NODE) == null) {
+            curatorFramework.create().forPath(PARENT_NODE);
+            log.info("Parent Node created:");
+        }
+    }
+
+    private String findSequentialNode(List<String> existingNodes) {
+        for (String node : existingNodes) {
+            if (node.startsWith(hostIp + ":" + hostPort + "-")) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    private String createSequentialNode(CuratorFramework curatorFramework) throws Exception {
+        String sequentialNodePath = curatorFramework.create().withMode(CreateMode.PERSISTENT_SEQUENTIAL)
+                .forPath(PARENT_NODE + "/" + hostIp + ":" + hostPort + "-", "data".getBytes());
+        return sequentialNodePath;
+    }
+
+    private void handleInitializationError(Exception e) {
+        log.info("Exception occurred while initializing Zookeeper!", e);
+        log.info("Trying to fetch Id from local file");
+        workerId = retrieveWorkerIdFromFile();
+        if (workerId != -1) {
+            log.info("Worker Id is Found!");
+            return;
+        } else {
+            log.info("Worker Id is not found");
+        }
+        throw new InitializationFailedException(e.getMessage());
+    }
+
     private int retrieveWorkerIdFromFile() {
-        if (Files.exists(Paths.get("workerId.txt"))) {
+        Path path = Paths.get("workerId.txt");
+        if (Files.exists(path)) {
             try {
-                String savedWorkerId = Files.readAllLines(Paths.get("workerId.txt")).get(0);
+                String savedWorkerId = Files.readAllLines(path).get(0);
                 return Integer.parseInt(savedWorkerId);
             } catch (IOException e) {
                 log.error("Error reading workerId.txt: {}", e.getMessage());
@@ -90,13 +112,23 @@ public class ZookeeperHolder {
         return -1; // Return -1 if file doesn't exist or there's an error
     }
 
+    private int extractWorkerId(String sequentialNodePath) {
+        String[] parts = sequentialNodePath.split("-");
+        String sequenceNumber = parts[parts.length - 1];
+        return Integer.parseInt(sequenceNumber);
+    }
     private void saveWorkerIdToFile(int workerId) {
+        Path path = Paths.get("workerId.txt");
         try {
-            Files.write(Paths.get("workerId.txt"), String.valueOf(workerId).getBytes());
+            if (!Files.exists(path) || Files.exists(path) && Files.isRegularFile(path) && Files.size(path) == 0) {
+                Files.write(path, String.valueOf(workerId).getBytes());
+            }
         } catch (IOException e) {
             log.error("Error saving workerId to file: {}", e.getMessage());
         }
     }
+
+
     public int getWorkerId() {
         return workerId;
     }

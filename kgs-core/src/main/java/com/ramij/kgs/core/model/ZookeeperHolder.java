@@ -92,6 +92,7 @@ public class ZookeeperHolder {
         log.info("Exception occurred while initializing Zookeeper!", e);
         log.info("Trying to fetch Id from local file");
         workerId = retrieveWorkerIdFromFile();
+        log.debug("WorkerId = {}",workerId);
         if (workerId != -1) {
             log.info("Worker Id is Found!");
             return;

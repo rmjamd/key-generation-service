@@ -15,15 +15,9 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class SnowflakeWorkerIdGenImpl implements WorkerIdGen {
 
-    final Configurator config;
-    final ServerInfoProvider serverInfoProvider;
     private final ZookeeperHolder holder;
-
-
     @Autowired
     public SnowflakeWorkerIdGenImpl(Configurator config, ServerInfoProvider serverInfoProvider) {
-        this.config = config;
-        this.serverInfoProvider = serverInfoProvider;
         ServerInfo serverInfo = serverInfoProvider.getServerDetails();
         log.info("Server Details:{}", serverInfo);
         ZookeeperHolder zookeeperHolder = null;

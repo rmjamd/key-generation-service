@@ -46,7 +46,7 @@ Before you proceed with setting up the project, make sure you have the following
    java -jar kgs-server/target/kgs-server.jar --server.port=8081
    # you can run multiple jar in different port
     ```
-   ![Sample Output](https://example.com/path/to/sample-output-screenshot.png)
+   ![Sample Output](https://github.com/rmjamd/key-generation-service/blob/master/sample_output.png)
 ## Usage and Benefits
 
 1. **Distributed Unique ID Generation**: Twitter Snowflake offers a solution for generating globally unique IDs in distributed systems.
@@ -77,7 +77,7 @@ Adjust the following configurations in application.properties:
 - zookeeper.connectionString: update your zookeeper host and port ip according to your configuration
 
 ## Postman Collection
-[collections](URL)
+[collections](https://github.com/rmjamd/key-generation-service/blob/master/kgs.postman_collection.json)
 
 ## Notes
 

@@ -74,7 +74,7 @@ Before you proceed with setting up the project, make sure you have the following
 ## Configuration
 Adjust the following configurations in application.properties:
 
-- zookeeper.connectionString: update your zookeeper host and port ip according to your configuration
+- zk:host, zk:port: update your zookeeper host and port ip according to your configuration
 
 ## Postman Collection
 [collections](https://github.com/rmjamd/key-generation-service/blob/master/kgs.postman_collection.json)

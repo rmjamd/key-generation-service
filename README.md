@@ -13,6 +13,7 @@ This project demonstrates the implementation of Twitter Snowflake for generating
 - [Usage and Benefits](#usage-and-benefits)
 - [Configuration](#configuration)
 - [Postman Collection](#postman-collection)
+- [Notes](#notes)
 
 ## Features
 
@@ -70,5 +71,24 @@ Before you proceed with setting up the project, make sure you have the following
 
 11. **Avoid Collisions**: Snowflake's composition minimizes the likelihood of ID collisions.
 
+## Configuration
+Adjust the following configurations in application.properties:
+
+- zookeeper.connectionString: update your zookeeper host and port ip according to your configuration
+
 ## Postman Collection
 [collections](URL)
+
+## Notes
+
+- **Suggestions Welcome**: We welcome any suggestions, improvements, or contributions from the community. If you have ideas to enhance this project or find any issues, feel free to [open an issue](link-to-issue-tracker) or submit a pull request.
+
+- **Feedback Encouraged**: If you found this project helpful or have any feedback, we'd love to hear from you. You can reach out to us through [ramijnalpur@example.com](mailto:email@example.com) or [Twitter](https://twitter.com/rameezsardar4).
+
+- **Contributions**: If you're interested in contributing to this project, please check out our [contribution guidelines](link-to-contribution-guidelines).
+
+- **Spread the Word**: If you think this project could be useful to others, consider giving it a star ⭐ on GitHub and sharing it with your colleagues.
+
+- **Stay Updated**: To stay updated with project , you can watch this repository on GitHub.
+
+We appreciate your interest in our project and your efforts to make it better!

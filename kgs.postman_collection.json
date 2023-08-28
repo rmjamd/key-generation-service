@@ -1,0 +1,48 @@
+{
+	"info": {
+		"_postman_id": "228d9ebc-f4a9-423f-aced-104f9607c7e5",
+		"name": "kgs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getKey",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/kgs/key",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"kgs",
+						"key"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shutdown",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/shutdown",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shutdown"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

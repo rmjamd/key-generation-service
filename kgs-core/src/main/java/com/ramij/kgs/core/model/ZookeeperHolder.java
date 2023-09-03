@@ -83,9 +83,8 @@ public class ZookeeperHolder {
     }
 
     private String createSequentialNode(CuratorFramework curatorFramework) throws Exception {
-        String sequentialNodePath = curatorFramework.create().withMode(CreateMode.PERSISTENT_SEQUENTIAL)
+        return curatorFramework.create().withMode(CreateMode.PERSISTENT_SEQUENTIAL)
                 .forPath(PARENT_NODE + "/" + hostIp + ":" + hostPort + "-", "data".getBytes());
-        return sequentialNodePath;
     }
 
     private void handleInitializationError(Exception e) {

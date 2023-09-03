@@ -58,7 +58,12 @@
 			<artifactId>curator-framework</artifactId>
 			<version>5.5.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 
 
 	</dependencies>

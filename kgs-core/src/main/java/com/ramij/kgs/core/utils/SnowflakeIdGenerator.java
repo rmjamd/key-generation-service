@@ -1,11 +1,12 @@
 package com.ramij.kgs.core.utils;
 
+import com.ramij.kgs.core.exceptions.InvalidSystemClockExceptions;
+
 public class SnowflakeIdGenerator {
 
     private static final int TIMESTAMP_BITS = 41;
     private static final int WORKER_BITS = 10;
     private static final int SEQUENCE_BITS = 12;
-//    private static final int SIGN_BIT = 1;
 
     private static final long MAX_WORKER_ID = (1L << WORKER_BITS) - 1;
     private static final long MAX_SEQUENCE = (1L << SEQUENCE_BITS) - 1;
@@ -24,7 +25,7 @@ public class SnowflakeIdGenerator {
         long currentTimestamp = System.currentTimeMillis() - EPOCH;
 
         if (currentTimestamp < lastTimestamp) {
-            throw new RuntimeException("Clock moved backwards. Refusing to generate id for " + (lastTimestamp - currentTimestamp) + " milliseconds.");
+            throw new InvalidSystemClockExceptions("Clock moved backwards. Refusing to generate id for " + (lastTimestamp - currentTimestamp) + " milliseconds.");
         }
 
         if (currentTimestamp == lastTimestamp) {
